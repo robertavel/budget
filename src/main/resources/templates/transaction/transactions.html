@@ -18,7 +18,25 @@
 <body>
 <div class="container">
     <h1>All transactions</h1>
-    <p th:text="'Found transactions:' + ${transactions != null}"></p>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Date</th>
+            <th scope="col">Description</th>
+            <th scope="col">Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="transaction : ${transactions}">
+            <th scope="row" th:text="${transactionStat.count}">1</th>
+            <td th:text="${transaction.date}">2019-01-05</td>
+            <td th:text="${transaction.description}">A transaction</td>
+            <td th:text="${transaction.amount}">12.50</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
