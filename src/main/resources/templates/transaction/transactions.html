@@ -3,6 +3,7 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <!--@thymesVar id="transactions" type="java.util.List<lt.velykis.roberta.budget.app.transaction.Transaction>"-->
+<!--@thymesVar id="#numbers" type="org.thymeleaf.expression.Numbers"-->
 <head>
     <title>All transactions</title>
 
@@ -33,7 +34,7 @@
             <th scope="row" th:text="${transactionStat.count}">1</th>
             <td th:text="${transaction.date}">2019-01-05</td>
             <td th:text="${transaction.description}">A transaction</td>
-            <td th:text="${transaction.amount}">12.50</td>
+            <td th:text="${#numbers.formatDecimal(transaction.amount, 1, 2)}">12.50</td>
         </tr>
         </tbody>
     </table>
