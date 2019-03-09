@@ -41,4 +41,10 @@ public class TransactionService {
         transactionRepository.update(newTransaction);
 
     }
+
+    public void deleteTransaction(UUID id) {
+
+        transactionRepository.delete(id);
+
+    }
 }
