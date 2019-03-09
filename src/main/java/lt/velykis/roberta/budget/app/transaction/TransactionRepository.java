@@ -28,4 +28,8 @@ public class TransactionRepository {
         return transactions;
     }
 
+    public void insert(Transaction transaction) {
+        transactions.add(transaction);
+    }
+
 }
