@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class TransactionService {
@@ -24,4 +26,19 @@ public class TransactionService {
         transactionRepository.insert(transaction);
     }
 
+    public Optional<Transaction> findTransaction(UUID id) {
+        return transactionRepository.findTransaction(id);
+    }
+
+    public void updateTransaction(UUID id, Transaction updatedTransaction) {
+
+        Transaction newTransaction = new Transaction(
+                id,
+                updatedTransaction.getDate(),
+                updatedTransaction.getDescription(),
+                updatedTransaction.getAmount());
+
+        transactionRepository.update(newTransaction);
+
+    }
 }
