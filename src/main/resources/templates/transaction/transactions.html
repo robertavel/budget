@@ -2,8 +2,8 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{header :: head('All transactions')}">
-    <title>All transactions111</title>
+<head th:replace="base :: head(~{::title})">
+    <title>All transactions</title>
 </head>
 
 <body>
@@ -32,7 +32,7 @@
     <a class="btn btn-primary" href="/add">Add</a>
 </div>
 
-<div th:insert="~{footer :: js}"></div>
+<div th:insert="~{base :: js}"></div>
 
 </body>
 </html>

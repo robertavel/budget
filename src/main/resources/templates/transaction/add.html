@@ -3,7 +3,7 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{header :: head('Add new transaction')}">
+<head th:replace="base :: head(~{::title})">
     <title>Add new transaction</title>
 </head>
 
@@ -33,7 +33,7 @@
     </form>
 </div>
 
-<div th:insert="~{footer :: js}"></div>
+<div th:insert="~{base :: js}"></div>
 
 </body>
 </html>
