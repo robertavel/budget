@@ -41,7 +41,7 @@
 
         <div class="form-group">
             <label for="amount">Amount</label>
-            <input type="number" class="form-control" th:field="*{amount}" placeholder="0.00"
+            <input type="number" class="form-control" step="0.01" th:field="*{amount}" placeholder="0.00"
                    required>
         </div>
         <p><input type="submit" value="Submit"/></p>
