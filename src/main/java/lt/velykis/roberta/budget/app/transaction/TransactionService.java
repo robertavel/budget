@@ -20,4 +20,8 @@ public class TransactionService {
         return FunctionUtil.toList(transactionRepository.findAll());
     }
 
+    public void addNewTransaction(Transaction transaction) {
+        transactionRepository.insert(transaction);
+    }
+
 }

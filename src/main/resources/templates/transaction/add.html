@@ -2,10 +2,12 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
+
 <!--@thymesVar id="transactions" type="java.util.List<lt.velykis.roberta.budget.app.transaction.Transaction>"-->
 <!--@thymesVar id="#numbers" type="org.thymeleaf.expression.Numbers"-->
+
 <head>
-    <title>All transactions</title>
+    <title>Add transaction</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,29 +19,33 @@
           crossorigin="anonymous">
 </head>
 <body>
-
 <div class="container">
-    <h1>All transactions</h1>
+    <h1>Add transaction</h1>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Date</th>
-            <th scope="col">Description</th>
-            <th scope="col">Amount</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="transaction : ${transactions}">
-            <th scope="row" th:text="${transactionStat.count}">1</th>
-            <td th:text="${transaction.date}">2019-01-05</td>
-            <td th:text="${transaction.description}">A transaction</td>
-            <td th:text="${#numbers.formatDecimal(transaction.amount, 1, 2)}">12.50</td>
-        </tr>
-        </tbody>
-    </table>
-    <a class="btn btn-primary" href="/add">Add</a>
+    <!--<p>Id: <input type="text" th:field="*{id}" /></p>
+    //<p>Message: <input type="text" th:field="*{content}" /></p>
+    //<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p -->
+
+    <form action="#" th:action="@{/transactions}" th:object="${transaction}" method="post">
+        <div class="form-group">
+            <label for="date">Date</label>
+            <!--<input type="date" class="form-control" th:field="*{date}" required>-->
+            <input type="date" class="form-control" th:field="*{date}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" th:field="*{description}" placeholder="Description"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="number" class="form-control" step="0.01" th:field="*{amount}" placeholder="0.00"
+                   required>
+        </div>
+        <p><input type="submit" value="Submit"/></p>
+    </form>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

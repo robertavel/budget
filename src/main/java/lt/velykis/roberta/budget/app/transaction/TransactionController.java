@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -25,5 +26,24 @@ public class TransactionController {
 
         return "transaction/transactions";
     }
+
+    @PostMapping("/transactions")
+    public String addTransaction(Transaction transaction, Model model) {
+
+        transactionService.addNewTransaction(transaction);
+
+        return listAllTransactions(model);
+    }
+
+    @GetMapping("/add")
+    public String addTransactionForm(Model model) {
+
+        Transaction transaction = new Transaction(null, null, null);
+
+        model.addAttribute("transaction", transaction);
+
+        return "transaction/add";
+    }
+
 
 }
