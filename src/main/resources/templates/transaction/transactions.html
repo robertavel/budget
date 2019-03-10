@@ -18,6 +18,7 @@
             <th scope="col">Date</th>
             <th scope="col">Description</th>
             <th scope="col">Amount</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -26,10 +27,13 @@
             <td th:text="${transaction.date}">2019-01-05</td>
             <td th:text="${transaction.description}">A transaction</td>
             <td th:text="${#numbers.formatDecimal(transaction.amount, 1, 2)}">12.50</td>
+            <td><a class="btn btn-primary"
+                   th:href="@{/transactions/{transactionId}(transactionId=${transaction.id})}">Edit</a>
+            </td>
         </tr>
         </tbody>
     </table>
-    <a class="btn btn-primary" href="/add">Add</a>
+    <a class="btn btn-primary" th:href="@{/add}">Add</a>
 </div>
 
 <div th:insert="~{base :: js}"></div>
