@@ -18,14 +18,12 @@
             <th scope="col">Date</th>
             <th scope="col">Description</th>
             <th scope="col">Amount</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-
+            <th colspan="2" scope="col"></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="transaction : ${transactions}">
-            <th scope="row" th:text="${transactionStat.count}">1</th>
+            <td scope="row" th:text="${transactionStat.count}">1</td>
             <td th:text="${transaction.date}">2019-01-05</td>
             <td th:text="${transaction.description}">A transaction</td>
             <td th:text="${#numbers.formatDecimal(transaction.amount, 1, 2)}">12.50</td>
@@ -40,6 +38,14 @@
             </td>
         </tr>
         </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="3" class="text-right font-weight-bold">Total:</td>
+            <td th:text="${#numbers.formatDecimal(totalAmount, 1, 2)}">12</td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tfoot>
     </table>
     <a class="btn btn-primary" th:href="@{/add}">Add</a>
 </div>
