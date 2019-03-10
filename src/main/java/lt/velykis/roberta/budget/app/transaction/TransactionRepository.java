@@ -45,4 +45,8 @@ public class TransactionRepository {
                 tr.getId().equals(transaction.getId()) ? transaction : tr);
     }
 
+    public void delete(UUID id) {
+        transactions.removeIf(tr -> id.equals(tr.getId()));
+    }
+
 }

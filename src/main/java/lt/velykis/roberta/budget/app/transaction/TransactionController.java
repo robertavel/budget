@@ -67,7 +67,7 @@ public class TransactionController {
         return "transaction/edit";
     }
 
-    @PostMapping("/transactions/{transactionId}")
+    @PostMapping(value = "/transactions/{transactionId}", params = "!delete")
     public String editTransaction(@PathVariable("transactionId") UUID transactionId,
                                   Transaction updatedTransaction) {
 
@@ -78,6 +78,14 @@ public class TransactionController {
         }
 
         transactionService.updateTransaction(transactionId, updatedTransaction);
+
+        return "redirect:/transactions";
+    }
+
+    @PostMapping(value = "/transactions/{transactionId}", params = "delete=true")
+    public String deleteTransaction(@PathVariable("transactionId") UUID transactionId) {
+
+        transactionService.deleteTransaction(transactionId);
 
         return "redirect:/transactions";
     }

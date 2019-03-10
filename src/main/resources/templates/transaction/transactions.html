@@ -19,6 +19,8 @@
             <th scope="col">Description</th>
             <th scope="col">Amount</th>
             <th scope="col"></th>
+            <th scope="col"></th>
+
         </tr>
         </thead>
         <tbody>
@@ -29,6 +31,12 @@
             <td th:text="${#numbers.formatDecimal(transaction.amount, 1, 2)}">12.50</td>
             <td><a class="btn btn-primary"
                    th:href="@{/transactions/{transactionId}(transactionId=${transaction.id})}">Edit</a>
+            </td>
+            <td>
+                <form th:action="@{/transactions/{transactionId}(transactionId=${transaction.id},delete=true)}"
+                      method="post">
+                    <p><input class="btn btn-danger" type="submit" value="Delete"/></p>
+                </form>
             </td>
         </tr>
         </tbody>
