@@ -35,6 +35,8 @@ public class TransactionController {
     @PostMapping("/transactions")
     public String addTransaction(Transaction transaction, Model model) {
 
+        transaction.setId(UUID.randomUUID());
+
         transactionService.addNewTransaction(transaction);
 
         return listAllTransactions(model);
@@ -43,7 +45,7 @@ public class TransactionController {
     @GetMapping("/add")
     public String showAddTransactionForm(Model model) {
 
-        Transaction transaction = new Transaction(UUID.randomUUID(), null, null, null);
+        Transaction transaction = new Transaction(null, null, null, null);
 
         model.addAttribute("transaction", transaction);
 
