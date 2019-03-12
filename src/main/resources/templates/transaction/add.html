@@ -15,19 +15,22 @@
         <div class="form-group">
             <label for="date">Date</label>
             <!--<input type="date" class="form-control" th:field="*{date}" required>-->
-            <input type="date" class="form-control" th:field="*{date}" required>
+            <input type="date" class="form-control" th:field="*{date}" placeholder="2015-02-21" required>
+            <p th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</p>
         </div>
 
         <div class="form-group">
             <label for="description">Description</label>
             <input type="text" class="form-control" th:field="*{description}" placeholder="Description"
                    required>
+            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</p>
         </div>
 
         <div class="form-group">
             <label for="amount">Amount</label>
             <input type="number" class="form-control" step="0.01" th:field="*{amount}" placeholder="0.00"
                    required>
+            <p th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">Amount Error</p>
         </div>
         <p><input type="submit" value="Submit"/></p>
     </form>
