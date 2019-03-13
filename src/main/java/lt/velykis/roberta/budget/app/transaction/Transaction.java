@@ -18,14 +18,14 @@ public class Transaction {
 
     private UUID id;
 
-    @NotNull(message = "Enter date")
+    @NotNull(message = "Please enter date")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate date;
 
-    @NotEmpty(message = "Enter description")
+    @NotEmpty(message = "Please enter description")
     private String description;
 
-    @NotNull(message = "Enter amount")
+    @NotNull(message = "Please enter amount")
     private BigDecimal amount;
 
 }
