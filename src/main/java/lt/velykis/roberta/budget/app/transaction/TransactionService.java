@@ -4,6 +4,7 @@ import lt.velykis.roberta.budget.app.util.FunctionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -45,6 +46,18 @@ public class TransactionService {
     public void deleteTransaction(UUID id) {
 
         transactionRepository.delete(id);
+
+    }
+
+    public static BigDecimal countTotal(List<Transaction> transactions) {
+
+        BigDecimal sum = BigDecimal.ZERO;
+
+        for (Transaction transaction : transactions) {
+            sum = sum.add(transaction.getAmount());
+        }
+
+        return sum;
 
     }
 }

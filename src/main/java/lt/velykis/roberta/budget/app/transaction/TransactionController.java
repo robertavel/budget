@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -27,8 +28,9 @@ public class TransactionController {
     public String listAllTransactions(Model model) {
 
         List<Transaction> transactions = transactionService.getAllTransactions();
+        BigDecimal totalAmount = TransactionService.countTotal(transactions);
         model.addAttribute("transactions", transactions);
-
+        model.addAttribute("totalAmount", totalAmount);
         return "transaction/transactions";
     }
 
