@@ -79,7 +79,12 @@ public class TransactionController {
 
     @PostMapping(value = "/transactions/{transactionId}", params = "!delete")
     public String editTransaction(@PathVariable("transactionId") UUID transactionId,
-                                  Transaction updatedTransaction) {
+                                  @Valid Transaction updatedTransaction,
+                                  BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "transaction/edit";
+        }
 
         Optional<Transaction> transaction = transactionService.findTransaction(transactionId);
 
