@@ -1,5 +1,6 @@
 package lt.velykis.roberta.budget.app.transaction;
 
+import lt.velykis.roberta.budget.app.account.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -42,8 +43,17 @@ public class TransactionController {
                                  Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "transaction/add";
+            return showAddTransactionForm(transaction, model);
         }
+
+        Optional<Account> account = transactionService.findAccount(UUID.fromString(transaction.getAccountId()));
+
+        if (!account.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found");
+        }
+
+        transaction.setAccount(account.get());
+
 
         transaction.setId(UUID.randomUUID());
 
@@ -55,9 +65,15 @@ public class TransactionController {
     @GetMapping("/add")
     public String showAddTransactionForm(Model model) {
 
-        Transaction transaction = new Transaction(null, null, null, null);
+        Transaction transaction = new Transaction(null, null, null, null, null, null);
+        return showAddTransactionForm(transaction, model);
+    }
 
+    private String showAddTransactionForm(Transaction transaction, Model model) {
         model.addAttribute("transaction", transaction);
+
+        List<Account> accounts = transactionService.getAllAccounts();
+        model.addAttribute("accounts", accounts);
 
         return "transaction/add";
     }
@@ -71,6 +87,9 @@ public class TransactionController {
         if (!transaction.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Transaction not found");
         }
+
+        List<Account> accounts = transactionService.getAllAccounts();
+        model.addAttribute("accounts", accounts);
 
         model.addAttribute("transaction", transaction.get());
 
@@ -92,7 +111,14 @@ public class TransactionController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Transaction not found");
         }
 
-        transactionService.updateTransaction(transactionId, updatedTransaction);
+        Optional<Account> account = transactionService.findAccount(UUID.fromString(updatedTransaction.getAccountId()));
+
+        if (!account.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found");
+        }
+
+
+        transactionService.updateTransaction(account.get(), transactionId, updatedTransaction);
 
         return "redirect:/transactions";
     }

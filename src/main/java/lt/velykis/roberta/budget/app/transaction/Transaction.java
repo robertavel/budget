@@ -3,6 +3,7 @@ package lt.velykis.roberta.budget.app.transaction;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lt.velykis.roberta.budget.app.account.Account;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
@@ -15,6 +16,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Transaction {
+
+    private Account account;
+    @NotEmpty(message = "Please select account")
+    private String accountId;
 
     private UUID id;
 

@@ -1,5 +1,6 @@
 package lt.velykis.roberta.budget.app.transaction;
 
+import lt.velykis.roberta.budget.app.account.Account;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -52,6 +53,8 @@ public class TransactionServiceTest {
     private static Transaction transaction(String amount) {
 
         return new Transaction(
+                new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508004"), "Andriaus SEB"),
+                "15c83e74-ebb1-4bb0-a2b7-83da2d508004",
                 UUID.randomUUID(),
                 LocalDate.of(2019, 1, 15),
                 "First transaction",
