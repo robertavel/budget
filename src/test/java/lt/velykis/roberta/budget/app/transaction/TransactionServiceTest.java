@@ -54,7 +54,6 @@ public class TransactionServiceTest {
 
         return new Transaction(
                 new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508004"), "Andriaus SEB"),
-                "15c83e74-ebb1-4bb0-a2b7-83da2d508004",
                 UUID.randomUUID(),
                 LocalDate.of(2019, 1, 15),
                 "First transaction",

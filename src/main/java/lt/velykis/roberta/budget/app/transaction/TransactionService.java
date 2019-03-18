@@ -48,7 +48,6 @@ public class TransactionService {
 
         Transaction newTransaction = new Transaction(
                 account,
-                updatedTransaction.getAccountId(),
                 id,
                 updatedTransaction.getDate(),
                 updatedTransaction.getDescription(),

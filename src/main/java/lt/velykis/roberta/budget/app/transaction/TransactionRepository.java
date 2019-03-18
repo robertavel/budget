@@ -23,14 +23,17 @@ public class TransactionRepository {
     private void initDefaultData() {
         Stream.of(
                 new Transaction(
-                        AccountRepository.ANDRIAUS_SEB, AccountRepository.ANDRIAUS_SEB.getId().toString(),
+                        AccountRepository.ANDRIAUS_SEB,
                         UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508004"),
                         LocalDate.of(2019, 1, 15),
                         "First transaction",
                         new BigDecimal("200.00")),
                 new Transaction(
-                        AccountRepository.ROBERTOS_SEB, AccountRepository.ROBERTOS_SEB.getId().toString(),
-                        UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508005"), LocalDate.of(2019, 2, 5), "Second transaction", new BigDecimal("-150.05"))
+                        AccountRepository.ROBERTOS_SEB,
+                        UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508005"),
+                        LocalDate.of(2019, 2, 5),
+                        "Second transaction",
+                        new BigDecimal("-150.05"))
         ).forEach(transactions::add);
     }
 

@@ -65,7 +65,7 @@ public class TransactionController {
     @GetMapping("/add")
     public String showAddTransactionForm(Model model) {
 
-        Transaction transaction = new Transaction(null, null, null, null, null, null);
+        Transaction transaction = new Transaction(null, null, null, null, null);
         return showAddTransactionForm(transaction, model);
     }
 
