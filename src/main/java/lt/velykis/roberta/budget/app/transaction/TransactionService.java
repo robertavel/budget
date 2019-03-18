@@ -1,5 +1,7 @@
 package lt.velykis.roberta.budget.app.transaction;
 
+import lt.velykis.roberta.budget.app.account.Account;
+import lt.velykis.roberta.budget.app.account.AccountRepository;
 import lt.velykis.roberta.budget.app.util.FunctionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,27 +15,39 @@ import java.util.UUID;
 public class TransactionService {
 
     private final TransactionRepository transactionRepository;
+    private final AccountRepository accountRepository;
+
 
     @Autowired
-    public TransactionService(TransactionRepository transactionRepository) {
+    public TransactionService(TransactionRepository transactionRepository, AccountRepository accountRepository) {
         this.transactionRepository = transactionRepository;
+        this.accountRepository = accountRepository;
     }
 
     public List<Transaction> getAllTransactions() {
         return FunctionUtil.toList(transactionRepository.findAll());
     }
 
+    public List<Account> getAllAccounts() {
+        return FunctionUtil.toList(accountRepository.findAll());
+    }
+
     public void addNewTransaction(Transaction transaction) {
         transactionRepository.insert(transaction);
+    }
+
+    public Optional<Account> findAccount(UUID id) {
+        return accountRepository.findAccount(id);
     }
 
     public Optional<Transaction> findTransaction(UUID id) {
         return transactionRepository.findTransaction(id);
     }
 
-    public void updateTransaction(UUID id, Transaction updatedTransaction) {
+    public void updateTransaction(Account account, UUID id, Transaction updatedTransaction) {
 
         Transaction newTransaction = new Transaction(
+                account,
                 id,
                 updatedTransaction.getDate(),
                 updatedTransaction.getDescription(),
