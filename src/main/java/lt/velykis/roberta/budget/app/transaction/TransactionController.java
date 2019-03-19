@@ -37,7 +37,7 @@ public class TransactionController {
         return "transaction/transactions";
     }
 
-    @PostMapping("/transactions")
+    @PostMapping("/add")
     public String addTransaction(@Valid Transaction transaction,
                                  BindingResult bindingResult,
                                  Model model) {
@@ -59,7 +59,7 @@ public class TransactionController {
 
         transactionService.addNewTransaction(transaction);
 
-        return listAllTransactions(model);
+        return "redirect:/transactions";
     }
 
     @GetMapping("/add")
@@ -70,6 +70,7 @@ public class TransactionController {
     }
 
     private String showAddTransactionForm(Transaction transaction, Model model) {
+
         model.addAttribute("transaction", transaction);
 
         List<Account> accounts = transactionService.getAllAccounts();
