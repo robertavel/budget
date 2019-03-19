@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -45,6 +46,12 @@ public class TransactionRepository {
         return transactions.stream()
                 .filter(tr -> id.equals(tr.getId()))
                 .findFirst();
+    }
+
+    public List<Transaction> filterTransaction(String accountId) {
+        return transactions.stream()
+                .filter(tr -> accountId.equals(tr.getAccountId()))
+                .collect(Collectors.toList());
     }
 
     public void insert(Transaction transaction) {

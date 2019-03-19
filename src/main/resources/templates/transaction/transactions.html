@@ -11,6 +11,24 @@
 <div class="container">
     <h1>All transactions</h1>
 
+
+    <div class="justify-content-end form-group">
+        <form th:action="@{/transactions}" method="get">
+            <label for="accountId">Filter by: </label>
+            <select id="accountId" name="accountId">
+                <option th:value="${null}">Choose...</option>
+                <option th:each="account : ${accounts}"
+                        th:value="${account.getId()}"
+                        th:text="${account.getName()}"
+                        th:selected="${accountId == account.getId().toString()}">
+                    Andrius SEB
+                </option>
+            </select>
+            <input class="btn btn-info" type="submit" value="Filter"/>
+        </form>
+    </div>
+
+
     <table class="table">
         <thead>
         <tr>
