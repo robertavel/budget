@@ -97,13 +97,25 @@ public class TransactionController {
         return "transaction/edit";
     }
 
+    public String showEditTransaction(UUID transactionId, Transaction transaction, Model model) {
+
+        List<Account> accounts = transactionService.getAllAccounts();
+        model.addAttribute("accounts", accounts);
+
+        transaction.setId(transactionId);
+        model.addAttribute(transaction);
+
+        return "transaction/edit";
+    }
+
+
     @PostMapping(value = "/transactions/{transactionId}", params = "!delete")
     public String editTransaction(@PathVariable("transactionId") UUID transactionId,
                                   @Valid Transaction updatedTransaction,
-                                  BindingResult bindingResult) {
+                                  BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "transaction/edit";
+            return showEditTransaction(transactionId, updatedTransaction, model);
         }
 
         Optional<Transaction> transaction = transactionService.findTransaction(transactionId);
@@ -131,6 +143,4 @@ public class TransactionController {
 
         return "redirect:/transactions";
     }
-
-
 }
