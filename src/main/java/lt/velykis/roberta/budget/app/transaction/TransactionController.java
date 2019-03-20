@@ -34,17 +34,10 @@ public class TransactionController {
         List<Account> accounts = transactionService.getAllAccounts();
         model.addAttribute("accounts", accounts);
 
-        List<Transaction> transactions;
+        List<Transaction> transactions =
+                accountId.map(id -> transactionService.filterTransaction(id))
+                        .orElseGet(() -> transactionService.getAllTransactions());
 
-        if (!accountId.isPresent()) {
-
-            transactions = transactionService.getAllTransactions();
-
-        } else {
-
-            transactions = transactionService.filterTransaction(accountId.get());
-
-        }
 
         BigDecimal totalAmount = TransactionService.countTotal(transactions);
         model.addAttribute("accountId", accountId.orElse(null));
