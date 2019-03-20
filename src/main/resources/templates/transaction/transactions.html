@@ -9,24 +9,33 @@
 <body>
 
 <div class="container">
-    <h1>All transactions</h1>
+    <table class="table">
+        <tbody>
+        <tr>
+            <td>
+                <h1>All transactions</h1>
+            </td>
+            <td th:align="right">
 
+                <form th:action="@{/transactions}" method="get">
+                    <div class="form-group">
+                        <select id="accountId" name="accountId">
+                            <option th:value="${null}">Choose...</option>
+                            <option th:each="account : ${accounts}"
+                                    th:value="${account.getId()}"
+                                    th:text="${account.getName()}"
+                                    th:selected="${accountId == account.getId().toString()}">
+                                Andrius SEB
+                            </option>
+                        </select>
+                        <input class="btn btn-secondary btn-sm justify-content-end" type="submit" value="Filter"/>
+                    </div>
+                </form>
+            </td>
 
-    <div class="justify-content-end form-group">
-        <form th:action="@{/transactions}" method="get">
-            <label for="accountId">Filter by: </label>
-            <select id="accountId" name="accountId">
-                <option th:value="${null}">Choose...</option>
-                <option th:each="account : ${accounts}"
-                        th:value="${account.getId()}"
-                        th:text="${account.getName()}"
-                        th:selected="${accountId == account.getId().toString()}">
-                    Andrius SEB
-                </option>
-            </select>
-            <input class="btn btn-info" type="submit" value="Filter"/>
-        </form>
-    </div>
+        </tr>
+        </tbody>
+    </table>
 
 
     <table class="table">
@@ -68,9 +77,9 @@
         </tfoot>
     </table>
     <a class="btn btn-primary" th:href="@{/add}">Add</a>
-</div>
+    </table>
 
-<div th:insert="~{base :: js}"></div>
+    <div th:insert="~{base :: js}"></div>
 
 </body>
 </html>
