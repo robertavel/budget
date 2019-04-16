@@ -44,6 +44,10 @@ public class TransactionService {
         return transactionRepository.findTransaction(id);
     }
 
+    public List<Transaction> filterTransaction(String accountId) {
+        return transactionRepository.filterTransaction(accountId);
+    }
+
     public void updateTransaction(Account account, UUID id, Transaction updatedTransaction) {
 
         Transaction newTransaction = new Transaction(

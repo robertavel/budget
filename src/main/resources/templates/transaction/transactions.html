@@ -9,7 +9,31 @@
 <body>
 
 <div class="container">
-    <h1>All transactions</h1>
+
+    <div class="row">
+        <div class="col">
+            <h1>All transactions</h1>
+        </div>
+        <div class="col-md-auto">
+
+            <form class="form-inline" th:action="@{/transactions}" method="get">
+                <div class="form-group">
+                    <select class="form-control" id="accountId" name="accountId">
+                        <option th:value="${null}">All accounts</option>
+                        <option th:each="account : ${accounts}"
+                                th:value="${account.getId()}"
+                                th:text="${account.getName()}"
+                                th:selected="${accountId == account.getId().toString()}">
+                            Andrius SEB
+                        </option>
+                    </select>
+                    <input class="btn btn-secondary" type="submit"
+                           value="Filter"/>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
     <table class="table">
         <thead>
@@ -50,9 +74,8 @@
         </tfoot>
     </table>
     <a class="btn btn-primary" th:href="@{/add}">Add</a>
-</div>
 
-<div th:insert="~{base :: js}"></div>
+    <div th:insert="~{base :: js}"></div>
 
 </body>
 </html>

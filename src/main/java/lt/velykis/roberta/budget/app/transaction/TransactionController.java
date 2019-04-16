@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
@@ -28,10 +29,18 @@ public class TransactionController {
     }
 
     @GetMapping("/transactions")
-    public String listAllTransactions(Model model) {
+    public String listAllTransactions(@RequestParam(required = false) Optional<String> accountId, Model model) {
 
-        List<Transaction> transactions = transactionService.getAllTransactions();
+        List<Account> accounts = transactionService.getAllAccounts();
+        model.addAttribute("accounts", accounts);
+
+        List<Transaction> transactions =
+                accountId.map(id -> transactionService.filterTransaction(id))
+                        .orElseGet(() -> transactionService.getAllTransactions());
+
+
         BigDecimal totalAmount = TransactionService.countTotal(transactions);
+        model.addAttribute("accountId", accountId.orElse(null));
         model.addAttribute("transactions", transactions);
         model.addAttribute("totalAmount", totalAmount);
         return "transaction/transactions";
@@ -107,7 +116,6 @@ public class TransactionController {
 
         return "transaction/edit";
     }
-
 
     @PostMapping(value = "/transactions/{transactionId}", params = "!delete")
     public String editTransaction(@PathVariable("transactionId") UUID transactionId,
