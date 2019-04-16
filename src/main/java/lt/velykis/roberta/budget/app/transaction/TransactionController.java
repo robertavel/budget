@@ -29,20 +29,24 @@ public class TransactionController {
     }
 
     @GetMapping("/transactions")
-    public String listAllTransactions(@RequestParam(required = false) Optional<String> accountId, Model model) {
+    public String listAllTransactions(@RequestParam(required = false, name = "accountId") Optional<String> accountIdRaw,
+                                      Model model) {
+
+        Optional<String> accountId = accountIdRaw.filter(acc -> !acc.isEmpty());
 
         List<Account> accounts = transactionService.getAllAccounts();
         model.addAttribute("accounts", accounts);
 
         List<Transaction> transactions =
-                accountId.map(id -> transactionService.filterTransaction(id))
-                        .orElseGet(() -> transactionService.getAllTransactions());
+                accountId.map(transactionService::filterTransaction)
+                        .orElseGet(transactionService::getAllTransactions);
 
 
         BigDecimal totalAmount = TransactionService.countTotal(transactions);
         model.addAttribute("accountId", accountId.orElse(null));
         model.addAttribute("transactions", transactions);
         model.addAttribute("totalAmount", totalAmount);
+
         return "transaction/transactions";
     }
 
