@@ -1,6 +1,6 @@
 package lt.velykis.roberta.budget.app.transaction;
 
-import lt.velykis.roberta.budget.app.account.AccountRepository;
+import lt.velykis.roberta.budget.app.account.Account;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -24,13 +24,13 @@ public class TransactionRepository {
     private void initDefaultData() {
         Stream.of(
                 new Transaction(
-                        AccountRepository.ANDRIAUS_SEB,
+                        new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508004"), "Andriaus SEB"),
                         UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508004"),
                         LocalDate.of(2019, 1, 15),
                         "First transaction",
                         new BigDecimal("200.00")),
                 new Transaction(
-                        AccountRepository.ROBERTOS_SEB,
+                        new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508005"), "Robertos SEB"),
                         UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508005"),
                         LocalDate.of(2019, 2, 5),
                         "Second transaction",
@@ -48,7 +48,7 @@ public class TransactionRepository {
                 .findFirst();
     }
 
-    public List<Transaction> filterTransaction(String accountId) {
+    public List<Transaction> filterTransaction(UUID accountId) {
         return transactions.stream()
                 .filter(tr -> accountId.equals(tr.getAccountId()))
                 .collect(Collectors.toList());

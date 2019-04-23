@@ -23,7 +23,7 @@
                         <option th:each="account : ${accounts}"
                                 th:value="${account.getId()}"
                                 th:text="${account.getName()}"
-                                th:selected="${accountId == account.getId().toString()}">
+                                th:selected="${accountId == account.getId()}">
                             Andrius SEB
                         </option>
                     </select>

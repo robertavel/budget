@@ -44,7 +44,7 @@ public class TransactionService {
         return transactionRepository.findTransaction(id);
     }
 
-    public List<Transaction> filterTransaction(String accountId) {
+    public List<Transaction> filterTransaction(UUID accountId) {
         return transactionRepository.filterTransaction(accountId);
     }
 

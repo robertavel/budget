@@ -17,7 +17,7 @@ public class Transaction {
 
     private Account account;
     @NotEmpty(message = "Please select account")
-    private String accountId;
+    private UUID accountId;
 
     private UUID id;
 
@@ -34,7 +34,7 @@ public class Transaction {
     public Transaction(Account account, UUID id, LocalDate date, String description, BigDecimal amount) {
 
         this.account = account;
-        this.accountId = account == null ? null : account.getId().toString();
+        this.accountId = account == null ? null : account.getId();
         this.id = id;
         this.date = date;
         this.description = description;
