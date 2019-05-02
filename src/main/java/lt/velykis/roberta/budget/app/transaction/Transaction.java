@@ -1,5 +1,6 @@
 package lt.velykis.roberta.budget.app.transaction;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lt.velykis.roberta.budget.app.account.Account;
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Transaction {
 
     private Account account;

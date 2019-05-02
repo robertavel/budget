@@ -20,7 +20,7 @@ public interface AccountRepository {
     @Select("INSERT INTO TABLE accountTable(id, name) VALUES(id = #{id}, name=#{name})")
     void insert(Account account);
 
-    @Select("UPDATE TABLE accountTable SET id = #{id}, name=#{name})")
+    @Select("UPDATE TABLE accountTable SET id = #{id}, name=#{name}")
     void update(Account account);
 
     @Select("DELETE FROM accountTable WHERE id=#{id}")
