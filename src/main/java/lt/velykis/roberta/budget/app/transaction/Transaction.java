@@ -16,7 +16,7 @@ import java.util.UUID;
 public class Transaction {
 
     private Account account;
-    @NotEmpty(message = "Please select account")
+    @NotNull(message = "Please select account")
     private UUID accountId;
 
     private UUID id;

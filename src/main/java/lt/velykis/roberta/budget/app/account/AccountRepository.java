@@ -5,7 +5,6 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -16,7 +15,7 @@ public interface AccountRepository {
     List<Account> findAll();
 
     @Select("SELECT * FROM accountTable WHERE id = #{id}")
-    Optional<Account> findAccount(UUID id);
+    Account findAccount(UUID id);
 
     @Select("INSERT INTO TABLE accountTable(id, name) VALUES(id = #{id}, name=#{name})")
     void insert(Account account);

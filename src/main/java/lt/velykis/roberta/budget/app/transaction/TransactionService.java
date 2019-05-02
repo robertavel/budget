@@ -37,7 +37,7 @@ public class TransactionService {
     }
 
     public Optional<Account> findAccount(UUID id) {
-        return accountRepository.findAccount(id);
+        return Optional.ofNullable(accountRepository.findAccount(id));
     }
 
     public Optional<Transaction> findTransaction(UUID id) {
