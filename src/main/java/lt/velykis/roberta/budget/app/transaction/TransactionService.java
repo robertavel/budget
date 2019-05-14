@@ -37,15 +37,15 @@ public class TransactionService {
     }
 
     public Optional<Account> findAccount(UUID id) {
-        return Optional.ofNullable(accountRepository.findAccount(id));
+        return Optional.ofNullable(accountRepository.find(id));
     }
 
     public Optional<Transaction> findTransaction(UUID id) {
-        return Optional.ofNullable(transactionRepository.findTransaction(id));
+        return Optional.ofNullable(transactionRepository.find(id));
     }
 
     public List<Transaction> filterTransaction(UUID accountId) {
-        return transactionRepository.filterTransaction(accountId);
+        return transactionRepository.filter(accountId);
     }
 
     public void updateTransaction(Account account, UUID id, Transaction updatedTransaction) {
