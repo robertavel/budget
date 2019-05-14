@@ -13,5 +13,5 @@ create table transactionTable
   description varchar(50) not null,
   amount      decimal     not null,
   primary key (id),
-  foreign key (accountId) references accountTable (id)
+  foreign key (accountId) references accountTable (id) ON DELETE CASCADE
 );
