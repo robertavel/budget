@@ -14,16 +14,16 @@ public interface TransactionRepository {
     List<Transaction> findAll();
 
     @Select("SELECT * FROM transactionTable WHERE id = #{id}")
-    Transaction findTransaction(UUID id);
+    Transaction find(UUID id);
 
     @Select("SELECT * FROM transactionTable WHERE accountId = #{accountId}")
-    List<Transaction> filterTransaction(UUID accountId);
+    List<Transaction> filter(UUID accountId);
 
-    @Insert("INSERT INTO TABLE transactionTable(accountId, id, date, description, amount) " +
+    @Insert("INSERT INTO transactionTable(accountId, id, date, description, amount) " +
             "VALUES(#{accountId}, #{id}, #{date}, #{description}, #{amount})")
     void insert(Transaction transaction);
 
-    @Update("UPDATE TABLE transactionTable SET accountId = #{accountId}, date = #{date}, description = #{description}, amount = #{amount}" +
+    @Update("UPDATE transactionTable SET accountId = #{accountId}, date = #{date}, description = #{description}, amount = #{amount}" +
             "WHERE id = #{id}")
     void update(Transaction transaction);
 
