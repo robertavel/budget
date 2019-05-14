@@ -1,7 +1,6 @@
 package lt.velykis.roberta.budget.app.transaction;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,15 +19,18 @@ public interface TransactionRepository {
     @Select("SELECT * FROM transactionTable WHERE accountId = #{accountId}")
     List<Transaction> filterTransaction(UUID accountId);
 
-    @Select("INSERT INTO TABLE transactionTable(accountId, id, date, description, amount) " +
-            "VALUES(accountId = #{accountId}, id = #{id}, date = #{date}, description = #{description}, amount = #{amount})")
+    @Insert("INSERT INTO TABLE transactionTable(accountId, id, date, description, amount) " +
+            "VALUES(#{accountId}, #{id}, #{date}, #{description}, #{amount})")
     void insert(Transaction transaction);
 
+    @Update("UPDATE TABLE transactionTable SET accountId = #{accountId}, date = #{date}, description = #{description}, amount = #{amount}" +
+            "WHERE id = #{id}")
+    void update(Transaction transaction);
 
-    @Select("UPDATE TABLE accountTable SET accountId = #{accountId}, id = #{id}, date = #{date}, description = #{description}, amount = #{amount}")
-    public void update(Transaction transaction);
-
-    @Select("DELETE FROM transactionTable WHERE id=#{id}")
+    @Delete("DELETE FROM transactionTable WHERE id=#{id}")
     void delete(UUID id);
+
+    @Delete("DELETE FROM transactionTable")
+    void deleteAll();
 
 }
