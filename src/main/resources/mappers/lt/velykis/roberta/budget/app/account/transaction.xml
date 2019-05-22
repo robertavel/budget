@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="lt.velykis.roberta.budget.app.transaction.TransactionRepository">
+    <!--    result maps     -->
+
+    <resultMap id="transactionMap" type="lt.velykis.roberta.budget.app.transaction.Transaction">
+        <id column="id" property="id"/>
+        <result column="accountId" property="accountId"/>
+        <result column="date" property="date"/>
+        <result column="description" property="description"/>
+        <result column="amount" property="amount"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="transactionMap">
+        SELECT accountId, id, date, description, amount
+        FROM transactionTable
+    </select>
+
+    <select id="find" resultMap="transactionMap">
+        SELECT accountId, id, date, description, amount
+        FROM transactionTable
+        WHERE id = #{id}
+    </select>
+
+    <select id="filter" resultMap="transactionMap">
+        SELECT accountId, id, date, description, amount
+        FROM transactionTable
+        WHERE accountId = #{accountId}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO transactionTable (accountId, id, date, description, amount)
+        VALUES (#{accountId}, #{id}, #{date}, #{description}, #{amount})
+    </insert>
+
+    <update id="update">
+        UPDATE transactionTable
+        SET accountId   = #{accountId},
+            id          = #{id},
+            date        = #{date},
+            description = #{description},
+            amount      = #{amount}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE
+        FROM transactionTable
+        WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteAll">
+        DELETE
+        FROM transactionTable
+    </delete>
+
+</mapper>
