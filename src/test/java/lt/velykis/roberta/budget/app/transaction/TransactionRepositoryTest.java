@@ -1,5 +1,7 @@
 package lt.velykis.roberta.budget.app.transaction;
 
+import lt.velykis.roberta.budget.app.account.Account;
+import lt.velykis.roberta.budget.app.account.AccountRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,9 +25,12 @@ public class TransactionRepositoryTest {
 
     @Autowired
     private TransactionRepository repository;
+    @Autowired
+    private AccountRepository accountRepository;
 
     @Before
     public void setUp() {
+        accountRepository.deleteAll();
         repository.deleteAll();
     }
 
@@ -38,6 +44,9 @@ public class TransactionRepositoryTest {
 
     @Test
     public void findAll_single() {
+
+        Account account = new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), "Robertos SEB");
+        accountRepository.insert(account);
 
         Transaction transaction = new Transaction(null, UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508088"),
                 LocalDate.of(2019, 1, 15), "First transaction", new BigDecimal(130));
@@ -55,6 +64,11 @@ public class TransactionRepositoryTest {
     @Test
     public void findSingle() {
 
+        Account account = new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), "Robertos SEB");
+        accountRepository.insert(account);
+        Account account2 = new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508099"), "Andriaus SEB");
+        accountRepository.insert(account2);
+
         Transaction transaction = new Transaction(null, UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508088"),
                 LocalDate.of(2019, 1, 15), "First transaction", new BigDecimal(130));
 
@@ -67,7 +81,35 @@ public class TransactionRepositoryTest {
     }
 
     @Test
+    public void filterTransactions() {
+
+        Account account1 = new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), "Robertos SEB");
+        accountRepository.insert(account1);
+
+        Account account2 = new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508099"), "Andriaus SEB");
+        accountRepository.insert(account2);
+
+        Transaction transaction1 = new Transaction(null, UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508088"),
+                LocalDate.of(2019, 1, 15), "First transaction", new BigDecimal(130));
+        repository.insert(transaction1);
+
+        Transaction transaction2 = new Transaction(null, UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508099"), UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508055"),
+                LocalDate.of(2019, 1, 16), "Second transaction", new BigDecimal(140));
+        repository.insert(transaction2);
+
+        List<Transaction> filterTransactions = repository.filter(account1.getId());
+        List<Transaction> expectedTransaction = new ArrayList<>();
+        expectedTransaction.add(transaction1);
+        assertThat(filterTransactions).isEqualTo(expectedTransaction);
+
+
+    }
+
+    @Test
     public void update() {
+
+        Account account = new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), "Robertos SEB");
+        accountRepository.insert(account);
 
         Transaction transaction = new Transaction(null, UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508088"),
                 LocalDate.of(2019, 1, 15), "First transaction", new BigDecimal(130));
@@ -84,6 +126,8 @@ public class TransactionRepositoryTest {
 
     @Test
     public void delete() {
+        Account account = new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), "Robertos SEB");
+        accountRepository.insert(account);
 
         Transaction transaction = new Transaction(null, UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508088"),
                 LocalDate.of(2019, 1, 15), "First transaction", new BigDecimal(130));
