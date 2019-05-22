@@ -10,21 +10,21 @@ import java.util.UUID;
 @Mapper
 public interface AccountRepository {
 
-    @Select("SELECT * FROM accountTable")
+    //@Select("SELECT * FROM accountTable")
     List<Account> findAll();
 
-    @Select("SELECT * FROM accountTable WHERE id = #{id}")
+    //@Select("SELECT * FROM accountTable WHERE id = #{id}")
     Account find(UUID id);
 
-    @Insert("INSERT INTO accountTable(id, name) VALUES(#{id}, #{name})")
+   // @Insert("INSERT INTO accountTable(id, name) VALUES(#{id}, #{name})")
     void insert(Account account);
 
-    @Update("UPDATE accountTable SET id = #{id}, name = #{name} WHERE id = #{id}")
+    //@Update("UPDATE accountTable SET id = #{id}, name = #{name} WHERE id = #{id}")
     void update(Account account);
 
-    @Delete("DELETE FROM accountTable WHERE id = #{id}")
+    //@Delete("DELETE FROM accountTable WHERE id = #{id}")
     void delete(UUID id);
 
-    @Delete("DELETE FROM accountTable")
+    //@Delete("DELETE FROM accountTable")
     void deleteAll();
 }
