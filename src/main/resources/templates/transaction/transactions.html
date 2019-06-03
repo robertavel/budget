@@ -49,8 +49,7 @@
         <tbody>
         <tr th:each="transaction : ${transactions}">
             <td scope="row" th:text="${transactionStat.count}">1</td>
-            <td th:text="null">Andriaus SEB</td>
-            //transaction.account.getName()
+            <td th:text="${transaction.account.getName()}">Andriaus SEB</td>
             <td th:text="${transaction.date}">2019-01-05</td>
             <td th:text="${transaction.description}">A transaction</td>
             <td th:text="${#numbers.formatDecimal(transaction.amount, 1, 2)}">12.50</td>

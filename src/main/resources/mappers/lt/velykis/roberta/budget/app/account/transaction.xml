@@ -11,23 +11,34 @@
         <result column="date" property="date"/>
         <result column="description" property="description"/>
         <result column="amount" property="amount"/>
+        <association property="account" javaType="lt.velykis.roberta.budget.app.account.Account">
+            <id property="id" column="accountId"/>
+            <result property="name" column="name"/>
+        </association>
     </resultMap>
 
+
     <select id="findAll" resultMap="transactionMap">
-        SELECT accountId, id, date, description, amount
-        FROM transactionTable
+        SELECT A.name, T.accountId, T.id, T.date, T.description, T.amount
+        FROM transactionTable T
+                 INNER JOIN accountTable A
+                            ON T.accountId = A.id
     </select>
 
     <select id="find" resultMap="transactionMap">
-        SELECT accountId, id, date, description, amount
-        FROM transactionTable
-        WHERE id = #{id}
+        SELECT A.name, T.accountId, T.id, T.date, T.description, T.amount
+        FROM transactionTable T
+                 INNER JOIN accountTable A
+                            ON T.accountId = A.id
+        WHERE T.id = #{T.id}
     </select>
 
     <select id="filter" resultMap="transactionMap">
-        SELECT accountId, id, date, description, amount
-        FROM transactionTable
-        WHERE accountId = #{accountId}
+        SELECT A.name, T.accountId, T.id, T.date, T.description, T.amount
+        FROM transactionTable T
+                 INNER JOIN accountTable A
+                            ON T.accountId = A.id
+        WHERE T.accountId = #{T.accountId}
     </select>
 
     <insert id="insert">

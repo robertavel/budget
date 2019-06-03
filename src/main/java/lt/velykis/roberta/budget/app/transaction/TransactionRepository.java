@@ -12,6 +12,8 @@ public interface TransactionRepository {
 
     List<Transaction> findAll();
 
+    List<Transaction> findAllWithAccount();
+
     Transaction find(UUID id);
 
     List<Transaction> filter(UUID accountId);
