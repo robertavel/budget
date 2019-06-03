@@ -1,17 +1,17 @@
 create table accountTable
 (
-  id   varchar(50) not null,
-  name varchar(50) not null,
-  primary key (id),
+  id   UUID        NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id),
 );
 
 create table transactionTable
 (
-  accountId   varchar(50) not null,
-  id          varchar(50) not null,
-  date        date        not null,
-  description varchar(50) not null,
-  amount      decimal     not null,
-  primary key (id),
-  foreign key (accountId) references accountTable (id) ON DELETE CASCADE
+  accountId   UUID        NOT NULL,
+  id          UUID        NOT NULL,
+  date        DATE        NOT NULL,
+  description VARCHAR(50) NOT NULL,
+  amount      DECIMAL     NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (accountId) REFERENCES accountTable (id) ON DELETE CASCADE
 );
