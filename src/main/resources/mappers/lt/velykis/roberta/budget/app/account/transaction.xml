@@ -21,14 +21,14 @@
     <select id="findAll" resultMap="transaction">
         SELECT a.name, t.accountId, t.id, t.date, t.description, t.amount
         FROM transactionTable t
-                 INNER JOIN accountTable a
+                 INNER JOIN account a
                             ON t.accountId = a.id
     </select>
 
     <select id="find" resultMap="transaction">
         SELECT a.name, t.accountId, t.id, t.date, t.description, t.amount
         FROM transactionTable t
-                 INNER JOIN accountTable a
+                 INNER JOIN account a
                             ON t.accountId = a.id
         WHERE t.id = #{t.id}
     </select>
@@ -36,7 +36,7 @@
     <select id="filter" resultMap="transaction">
         SELECT a.name, t.accountId, t.id, t.date, t.description, t.amount
         FROM transactionTable t
-                 INNER JOIN accountTable a
+                 INNER JOIN account a
                             ON t.accountId = a.id
         WHERE t.accountId = #{t.accountId}
     </select>

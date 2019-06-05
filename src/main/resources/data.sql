@@ -1,4 +1,4 @@
-insert into accountTable
+insert into account
 values ('15c83e74-ebb1-4bb0-a2b7-83da2d508002', 'Andriaus piniginė'),
        ('15c83e74-ebb1-4bb0-a2b7-83da2d508003', 'Robertos piniginė'),
        ('15c83e74-ebb1-4bb0-a2b7-83da2d508004', 'Andriaus SEB'),
