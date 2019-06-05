@@ -5,7 +5,7 @@
 <mapper namespace="lt.velykis.roberta.budget.app.transaction.TransactionRepository">
     <!--    result maps     -->
 
-    <resultMap id="transactionMap" type="lt.velykis.roberta.budget.app.transaction.Transaction">
+    <resultMap id="transaction" type="lt.velykis.roberta.budget.app.transaction.Transaction">
         <id column="id" property="id"/>
         <result column="accountId" property="accountId"/>
         <result column="date" property="date"/>
@@ -18,14 +18,14 @@
     </resultMap>
 
 
-    <select id="findAll" resultMap="transactionMap">
+    <select id="findAll" resultMap="transaction">
         SELECT A.name, T.accountId, T.id, T.date, T.description, T.amount
         FROM transactionTable T
                  INNER JOIN accountTable A
                             ON T.accountId = A.id
     </select>
 
-    <select id="find" resultMap="transactionMap">
+    <select id="find" resultMap="transaction">
         SELECT A.name, T.accountId, T.id, T.date, T.description, T.amount
         FROM transactionTable T
                  INNER JOIN accountTable A
@@ -33,7 +33,7 @@
         WHERE T.id = #{T.id}
     </select>
 
-    <select id="filter" resultMap="transactionMap">
+    <select id="filter" resultMap="transaction">
         SELECT A.name, T.accountId, T.id, T.date, T.description, T.amount
         FROM transactionTable T
                  INNER JOIN accountTable A
