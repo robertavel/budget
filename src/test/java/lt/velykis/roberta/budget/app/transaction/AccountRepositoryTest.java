@@ -22,6 +22,7 @@ public class AccountRepositoryTest {
 
     @Autowired
     private AccountRepository repository;
+    private UUID accountId = UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098");
 
     @Before
     public void setUp() {
@@ -39,7 +40,7 @@ public class AccountRepositoryTest {
     @Test
     public void findAll_single() {
 
-        Account account = new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), "Robertos SEB");
+        Account account = new Account(accountId, "Robertos SEB");
 
         repository.insert(account);
         assertThat(account.getId()).isNotNull();
@@ -52,7 +53,7 @@ public class AccountRepositoryTest {
     @Test
     public void findSingle() {
 
-        Account account = new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), "Robertos SEB");
+        Account account = new Account(accountId, "Robertos SEB");
 
         repository.insert(account);
         assertThat(account.getId()).isNotNull();
@@ -64,7 +65,7 @@ public class AccountRepositoryTest {
     @Test
     public void update() {
 
-        Account account = new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), "Robertos SEB");
+        Account account = new Account(accountId, "Robertos SEB");
         repository.insert(account);
 
         Account updatedAccount = new Account(account.getId(), "Andriaus SEB");
@@ -77,7 +78,7 @@ public class AccountRepositoryTest {
     @Test
     public void delete() {
 
-        Account account = new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), "Robertos SEB");
+        Account account = new Account(accountId, "Robertos SEB");
 
         repository.insert(account);
         repository.delete(account.getId());

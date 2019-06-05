@@ -28,6 +28,11 @@ public class TransactionRepositoryTest {
     @Autowired
     private AccountRepository accountRepository;
 
+    private UUID accountId = UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098");
+    private UUID accountId2 = UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508099");
+    private UUID transactionId = UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508088");
+
+
     @Before
     public void setUp() {
         accountRepository.deleteAll();
@@ -45,10 +50,10 @@ public class TransactionRepositoryTest {
     @Test
     public void findAll_single() {
 
-        Account account = new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), "Robertos SEB");
+        Account account = new Account(accountId, "Robertos SEB");
         accountRepository.insert(account);
 
-        Transaction transaction = new Transaction(account, UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508088"),
+        Transaction transaction = new Transaction(account, accountId, transactionId,
                 LocalDate.of(2019, 1, 15), "First transaction", new BigDecimal(130));
 
         repository.insert(transaction);
@@ -64,30 +69,30 @@ public class TransactionRepositoryTest {
     @Test
     public void findAllWithAcc() {
 
-        Account account = new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), "Robertos SEB");
+        Account account = new Account(accountId, "Robertos SEB");
         accountRepository.insert(account);
 
-        Transaction transaction = new Transaction(null, UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508088"),
+        Transaction transaction = new Transaction(null, accountId, transactionId,
                 LocalDate.of(2019, 1, 15), "First transaction", new BigDecimal(130));
         repository.insert(transaction);
         assertThat(transaction.getId()).isNotNull();
 
-        Transaction transactionWithAcc = new Transaction(account, UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508088"),
+        Transaction transactionWithAcc = new Transaction(account, accountId, transactionId,
                 LocalDate.of(2019, 1, 15), "First transaction", new BigDecimal(130));
 
-        List<Transaction> transactionsWithAccount = repository.findAllWithAccount();
+        List<Transaction> transactionsWithAccount = repository.findAll();
         Transaction found = repository.find(transaction.getId());
         assertThat(transactionsWithAccount).containsExactly(transactionWithAcc);
     }
 
     @Test
     public void findSingle() {
-        Account account = new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), "Robertos SEB");
+        Account account = new Account(accountId, "Robertos SEB");
         accountRepository.insert(account);
-        Account account2 = new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508099"), "Andriaus SEB");
+        Account account2 = new Account(accountId2, "Andriaus SEB");
         accountRepository.insert(account2);
 
-        Transaction transaction = new Transaction(account, UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508088"),
+        Transaction transaction = new Transaction(account, accountId, transactionId,
                 LocalDate.of(2019, 1, 15), "First transaction", new BigDecimal(130));
         repository.insert(transaction);
         assertThat(transaction.getId()).isNotNull();
@@ -100,17 +105,17 @@ public class TransactionRepositoryTest {
     @Test
     public void filterTransactions() {
 
-        Account account1 = new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), "Robertos SEB");
+        Account account1 = new Account(accountId, "Robertos SEB");
         accountRepository.insert(account1);
 
-        Account account2 = new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508099"), "Andriaus SEB");
+        Account account2 = new Account(accountId2, "Andriaus SEB");
         accountRepository.insert(account2);
 
-        Transaction transaction1 = new Transaction(account1, UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508088"),
+        Transaction transaction1 = new Transaction(account1, accountId, transactionId,
                 LocalDate.of(2019, 1, 15), "First transaction", new BigDecimal(130));
         repository.insert(transaction1);
 
-        Transaction transaction2 = new Transaction(account2, UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508099"), UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508055"),
+        Transaction transaction2 = new Transaction(account2, accountId2, UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508055"),
                 LocalDate.of(2019, 1, 16), "Second transaction", new BigDecimal(140));
         repository.insert(transaction2);
 
@@ -125,15 +130,15 @@ public class TransactionRepositoryTest {
     @Test
     public void update() {
 
-        Account account = new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), "Robertos SEB");
+        Account account = new Account(accountId, "Robertos SEB");
         accountRepository.insert(account);
 
-        Transaction transaction = new Transaction(account, UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508088"),
+        Transaction transaction = new Transaction(account, accountId, transactionId,
                 LocalDate.of(2019, 1, 15), "First transaction", new BigDecimal(130));
 
         repository.insert(transaction);
 
-        Transaction updateTransaction = new Transaction(account, UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), transaction.getId(),
+        Transaction updateTransaction = new Transaction(account, accountId, transaction.getId(),
                 LocalDate.of(2019, 1, 15), "First transaction", new BigDecimal(140));
         repository.update(updateTransaction);
 
@@ -143,10 +148,10 @@ public class TransactionRepositoryTest {
 
     @Test
     public void delete() {
-        Account account = new Account(UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), "Robertos SEB");
+        Account account = new Account(accountId, "Robertos SEB");
         accountRepository.insert(account);
 
-        Transaction transaction = new Transaction(null, UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508098"), UUID.fromString("15c83e74-ebb1-4bb0-a2b7-83da2d508088"),
+        Transaction transaction = new Transaction(null, accountId, transactionId,
                 LocalDate.of(2019, 1, 15), "First transaction", new BigDecimal(130));
         repository.insert(transaction);
 
