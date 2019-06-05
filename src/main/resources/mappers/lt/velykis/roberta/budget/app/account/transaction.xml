@@ -19,26 +19,26 @@
 
 
     <select id="findAll" resultMap="transaction">
-        SELECT A.name, T.accountId, T.id, T.date, T.description, T.amount
-        FROM transactionTable T
-                 INNER JOIN accountTable A
-                            ON T.accountId = A.id
+        SELECT a.name, t.accountId, t.id, t.date, t.description, t.amount
+        FROM transactionTable t
+                 INNER JOIN accountTable a
+                            ON t.accountId = a.id
     </select>
 
     <select id="find" resultMap="transaction">
-        SELECT A.name, T.accountId, T.id, T.date, T.description, T.amount
-        FROM transactionTable T
-                 INNER JOIN accountTable A
-                            ON T.accountId = A.id
-        WHERE T.id = #{T.id}
+        SELECT a.name, t.accountId, t.id, t.date, t.description, t.amount
+        FROM transactionTable t
+                 INNER JOIN accountTable a
+                            ON t.accountId = a.id
+        WHERE t.id = #{t.id}
     </select>
 
     <select id="filter" resultMap="transaction">
-        SELECT A.name, T.accountId, T.id, T.date, T.description, T.amount
-        FROM transactionTable T
-                 INNER JOIN accountTable A
-                            ON T.accountId = A.id
-        WHERE T.accountId = #{T.accountId}
+        SELECT a.name, t.accountId, t.id, t.date, t.description, t.amount
+        FROM transactionTable t
+                 INNER JOIN accountTable a
+                            ON t.accountId = a.id
+        WHERE t.accountId = #{t.accountId}
     </select>
 
     <insert id="insert">
