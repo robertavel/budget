@@ -20,14 +20,14 @@
 
     <select id="findAll" resultMap="transaction">
         SELECT a.name, t.accountId, t.id, t.date, t.description, t.amount
-        FROM transactionTable t
+        FROM transactionT t
                  INNER JOIN account a
                             ON t.accountId = a.id
     </select>
 
     <select id="find" resultMap="transaction">
         SELECT a.name, t.accountId, t.id, t.date, t.description, t.amount
-        FROM transactionTable t
+        FROM transactionT t
                  INNER JOIN account a
                             ON t.accountId = a.id
         WHERE t.id = #{t.id}
@@ -35,19 +35,19 @@
 
     <select id="filter" resultMap="transaction">
         SELECT a.name, t.accountId, t.id, t.date, t.description, t.amount
-        FROM transactionTable t
+        FROM transactionT t
                  INNER JOIN account a
                             ON t.accountId = a.id
         WHERE t.accountId = #{t.accountId}
     </select>
 
     <insert id="insert">
-        INSERT INTO transactionTable (accountId, id, date, description, amount)
+        INSERT INTO transactionT (accountId, id, date, description, amount)
         VALUES (#{accountId}, #{id}, #{date}, #{description}, #{amount})
     </insert>
 
     <update id="update">
-        UPDATE transactionTable
+        UPDATE transactionT
         SET accountId   = #{accountId},
             id          = #{id},
             date        = #{date},
@@ -58,13 +58,13 @@
 
     <delete id="delete">
         DELETE
-        FROM transactionTable
+        FROM transactionT
         WHERE id = #{id}
     </delete>
 
     <delete id="deleteAll">
         DELETE
-        FROM transactionTable
+        FROM transactionT
     </delete>
 
 </mapper>

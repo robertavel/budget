@@ -5,7 +5,7 @@ create table account
   PRIMARY KEY (id),
 );
 
-create table transactionTable
+create table transactionT
 (
   accountId   UUID        NOT NULL,
   id          UUID        NOT NULL,
