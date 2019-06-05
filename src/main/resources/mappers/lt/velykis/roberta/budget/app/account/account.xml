@@ -3,22 +3,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="lt.velykis.roberta.budget.app.account.AccountRepository">
-    <!--    result maps     -->
-    <resultMap id="accountMap" type="lt.velykis.roberta.budget.app.account.Account">
-        <id column="id" property="name"/>
-        <result column="id" property="id"/>
-        <result column="name" property="name"/>
-    </resultMap>
 
-    <select id="findAll" resultMap="accountMap">
-        SELECT id, name
-        FROM accountTable
+    <select id="findAll" resultType="lt.velykis.roberta.budget.app.account.Account">
+    SELECT id, name
+    FROM accountTable
     </select>
 
-    <select id="find" resultMap="accountMap">
-        SELECT id, name
-        FROM accountTable
-        WHERE id = #{id}
+    <select id="find" resultType="lt.velykis.roberta.budget.app.account.Account">
+    SELECT id, name
+    FROM accountTable
+    WHERE id = #{id}
     </select>
 
     <insert id="insert">
