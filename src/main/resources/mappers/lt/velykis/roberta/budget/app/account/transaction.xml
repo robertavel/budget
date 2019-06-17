@@ -30,7 +30,7 @@
         FROM transactionT t
                  INNER JOIN account a
                             ON t.accountId = a.id
-        WHERE t.id = #{t.id}
+        WHERE t.id = #{id}
     </select>
 
     <select id="filter" resultMap="transaction">
@@ -38,7 +38,7 @@
         FROM transactionT t
                  INNER JOIN account a
                             ON t.accountId = a.id
-        WHERE t.accountId = #{t.accountId}
+        WHERE t.accountId = #{accountId}
     </select>
 
     <insert id="insert">
