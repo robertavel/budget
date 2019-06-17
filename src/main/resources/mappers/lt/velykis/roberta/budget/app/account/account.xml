@@ -4,6 +4,11 @@
 
 <mapper namespace="lt.velykis.roberta.budget.app.account.AccountRepository">
 
+    <resultMap id="account" type="lt.velykis.roberta.budget.app.account.Account">
+        <id  property="id" column="accountId"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
     <select id="findAll" resultType="lt.velykis.roberta.budget.app.account.Account">
         SELECT id, name
         FROM account

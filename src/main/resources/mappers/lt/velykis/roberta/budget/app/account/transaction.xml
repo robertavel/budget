@@ -11,10 +11,7 @@
         <result column="date" property="date"/>
         <result column="description" property="description"/>
         <result column="amount" property="amount"/>
-        <association property="account" javaType="lt.velykis.roberta.budget.app.account.Account">
-            <id property="id" column="accountId"/>
-            <result property="name" column="name"/>
-        </association>
+        <association property="account" resultMap="lt.velykis.roberta.budget.app.account.AccountRepository.account"/>
     </resultMap>
 
 
