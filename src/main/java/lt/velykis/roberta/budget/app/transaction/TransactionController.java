@@ -32,7 +32,7 @@ public class TransactionController {
     public String listAllTransactions(@RequestParam(required = false, name = "accountId") Optional<String> accountIdRaw,
                                       Model model) {
 
-        Optional<String> accountId = accountIdRaw.filter(acc -> !acc.isEmpty());
+        Optional<UUID> accountId = accountIdRaw.filter(acc -> !acc.isEmpty()).map(UUID::fromString);
 
         List<Account> accounts = transactionService.getAllAccounts();
         model.addAttribute("accounts", accounts);
@@ -59,7 +59,7 @@ public class TransactionController {
             return showAddTransactionForm(transaction, model);
         }
 
-        Optional<Account> account = transactionService.findAccount(UUID.fromString(transaction.getAccountId()));
+        Optional<Account> account = transactionService.findAccount(transaction.getAccountId());
 
         if (!account.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found");
@@ -136,7 +136,7 @@ public class TransactionController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Transaction not found");
         }
 
-        Optional<Account> account = transactionService.findAccount(UUID.fromString(updatedTransaction.getAccountId()));
+        Optional<Account> account = transactionService.findAccount(updatedTransaction.getAccountId());
 
         if (!account.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found");

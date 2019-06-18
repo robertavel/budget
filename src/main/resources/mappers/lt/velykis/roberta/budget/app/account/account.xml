@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="lt.velykis.roberta.budget.app.account.AccountRepository">
+
+    <resultMap id="account" type="lt.velykis.roberta.budget.app.account.Account">
+        <id  property="id" column="accountId"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <select id="findAll" resultType="lt.velykis.roberta.budget.app.account.Account">
+        SELECT id, name
+        FROM account
+    </select>
+
+    <select id="find" resultType="lt.velykis.roberta.budget.app.account.Account">
+        SELECT id, name
+        FROM account
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO account (id, name)
+        VALUES (#{id}, #{name})
+    </insert>
+
+    <update id="update">
+        UPDATE account
+        SET name = #{name}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE
+        FROM account
+        WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteAll">
+        DELETE
+        FROM account
+    </delete>
+
+</mapper>

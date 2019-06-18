@@ -11,10 +11,10 @@
 <div class="container">
 
     <div class="row">
-        <div class="col">
+        <div class="py-4 col">
             <h1>All transactions</h1>
         </div>
-        <div class="col-md-auto">
+        <div class="py-4 col-md-auto">
 
             <form class="form-inline" th:action="@{/transactions}" method="get">
                 <div class="form-group">
@@ -23,11 +23,11 @@
                         <option th:each="account : ${accounts}"
                                 th:value="${account.getId()}"
                                 th:text="${account.getName()}"
-                                th:selected="${accountId == account.getId().toString()}">
+                                th:selected="${accountId == account.getId()}">
                             Andrius SEB
                         </option>
                     </select>
-                    <input class="btn btn-secondary" type="submit"
+                    <input class="ml-2 btn btn-secondary" type="submit"
                            value="Filter"/>
                 </div>
             </form>
