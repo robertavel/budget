@@ -10,11 +10,11 @@ import java.util.List;
 @NoArgsConstructor
 public class TransactionsWithTotalAmount {
 
-    private List<Transaction> transactionList;
+    private List<Transaction> transactions;
     private BigDecimal totalAmount;
 
-    public TransactionsWithTotalAmount(List<Transaction> transactionList, BigDecimal totalAmount) {
-        this.transactionList = transactionList;
+    public TransactionsWithTotalAmount(List<Transaction> transactions, BigDecimal totalAmount) {
+        this.transactions = transactions;
         this.totalAmount = totalAmount;
     }
 }

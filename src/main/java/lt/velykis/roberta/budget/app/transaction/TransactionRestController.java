@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -24,29 +25,24 @@ public class TransactionRestController {
     }
 
     @GetMapping("")
-    public TransactionsWithTotalAmount listAllTransactions(@RequestParam(required = false, name = "accountId") Optional<String> accountIdRaw) {
+    public TransactionsWithTotalAmount listAllTransactions(@RequestParam(required = false, name = "accountId") Optional<UUID> accountId) {
 
-        Optional<UUID> accountId = accountIdRaw.filter(acc -> !acc.isEmpty()).map(UUID::fromString);
-
-        List<Account> accounts = transactionService.getAllAccounts();
-
-        List<Transaction> transactionList = accountId.map(transactionService::filterTransaction)
+        List<Transaction> transactions = accountId.map(transactionService::filterTransaction)
                 .orElseGet(transactionService::getAllTransactions);
 
-        BigDecimal totalAmount = TransactionService.countTotal(transactionList);
-
-        return new TransactionsWithTotalAmount(transactionList, totalAmount);
+        BigDecimal totalAmount = TransactionService.countTotal(transactions);
+        return new TransactionsWithTotalAmount(transactions, totalAmount);
 
     }
 
-    @GetMapping(value = "/{transactionId}")
+    @GetMapping("/{transactionId}")
     public Optional<Transaction> transaction(@PathVariable("transactionId") UUID transactionId) {
 
         return transactionService.findTransaction(transactionId);
     }
 
     @PostMapping("")
-    public List<Transaction> addTransaction(@RequestBody Transaction transaction,
+    public List<Transaction> addTransaction(@Valid @RequestBody Transaction transaction,
                                             BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -59,7 +55,6 @@ public class TransactionRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found");
         }
 
-        transaction.setAccount(account.get());
         transaction.setId(UUID.randomUUID());
         transactionService.addNewTransaction(transaction);
 
@@ -67,8 +62,8 @@ public class TransactionRestController {
     }
 
     @PutMapping("/{transactionId}")
-    public Transaction editTransaction(@RequestBody Transaction updatedTransaction,
-                                       @PathVariable("transactionId") UUID transactionId,
+    public Transaction editTransaction(@PathVariable("transactionId") UUID transactionId,
+                                       @Valid @RequestBody Transaction updatedTransaction,
                                        BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
