@@ -1,0 +1,12 @@
+{
+  "account": {
+    "id": "15c83e74-ebb1-4bb0-a2b7-83da2d508004",
+    "name": "Robertos SEB"
+  },
+  "accountId": "15c83e74-ebb1-4bb0-a2b7-83da2d508004",
+  "id": "15c83e74-ebb1-4bb0-a2b7-83da2d508005",
+  "date": "2019-01-15",
+  "description": "First transaction",
+  "amount": 2
+}
+
