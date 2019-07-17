@@ -30,6 +30,14 @@ public class AccountController {
 
     @GetMapping("/{id}")
     public Optional<Account> account(@PathVariable("id") UUID id) {
+
+
+        Optional<Account> account = transactionService.findAccount(id);
+
+        if (!account.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found");
+        }
+
         return transactionService.findAccount(id);
     }
 
@@ -57,7 +65,7 @@ public class AccountController {
     public List<Account> addAccount(@Valid @RequestBody Account account, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "bubu");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.valueOf(bindingResult.getAllErrors()));
         }
 
         account.setId(UUID.randomUUID());
@@ -68,6 +76,12 @@ public class AccountController {
 
     @DeleteMapping("/{id}")
     public void deleteAccount(@PathVariable("id") UUID id) {
+
+        Optional<Account> account = transactionService.findAccount(id);
+
+        if (!account.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found");
+        }
 
         transactionService.deleteAccount(id);
     }

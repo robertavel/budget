@@ -38,6 +38,12 @@ public class TransactionRestController {
     @GetMapping("/{transactionId}")
     public Optional<Transaction> transaction(@PathVariable("transactionId") UUID transactionId) {
 
+        Optional<Transaction> transaction = transactionService.findTransaction(transactionId);
+
+        if (!transaction.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Transaction not found");
+        }
+
         return transactionService.findTransaction(transactionId);
     }
 
@@ -89,6 +95,12 @@ public class TransactionRestController {
 
     @DeleteMapping(value = "/{transactionId}")
     public void deleteTransaction(@PathVariable("transactionId") UUID transactionId) {
+
+        Optional<Transaction> transaction = transactionService.findTransaction(transactionId);
+
+        if (!transaction.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Transaction not found");
+        }
 
         transactionService.deleteTransaction(transactionId);
     }
