@@ -44,12 +44,12 @@ public class TransactionRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Transaction not found");
         }
 
-        return transactionService.findTransaction(transactionId);
+        return transaction;
     }
 
     @PostMapping("")
-    public List<Transaction> addTransaction(@Valid @RequestBody Transaction transaction,
-                                            BindingResult bindingResult) {
+    public Transaction addTransaction(@Valid @RequestBody Transaction transaction,
+                                      BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.valueOf(bindingResult.getAllErrors()));
@@ -58,13 +58,13 @@ public class TransactionRestController {
         Optional<Account> account = transactionService.findAccount(transaction.getAccountId());
 
         if (!account.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.valueOf(bindingResult.getAllErrors()));
         }
 
         transaction.setId(UUID.randomUUID());
         transactionService.addNewTransaction(transaction);
 
-        return transactionService.getAllTransactions();
+        return transaction;
     }
 
     @PutMapping("/{transactionId}")
@@ -85,7 +85,7 @@ public class TransactionRestController {
         Optional<Account> account = transactionService.findAccount(updatedTransaction.getAccountId());
 
         if (!account.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.valueOf(bindingResult.getAllErrors()));
         }
 
         transactionService.updateTransaction(account.get(), transactionId, updatedTransaction);
