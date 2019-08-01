@@ -38,7 +38,7 @@ public class AccountController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found");
         }
 
-        return transactionService.findAccount(id);
+        return account;
     }
 
     @PutMapping("/{id}")
@@ -62,7 +62,7 @@ public class AccountController {
     }
 
     @PostMapping("")
-    public List<Account> addAccount(@Valid @RequestBody Account account, BindingResult bindingResult) {
+    public Account addAccount(@Valid @RequestBody Account account, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.valueOf(bindingResult.getAllErrors()));
@@ -71,7 +71,7 @@ public class AccountController {
         account.setId(UUID.randomUUID());
         transactionService.addNewAccount(account);
 
-        return transactionService.getAllAccounts();
+        return account;
     }
 
     @DeleteMapping("/{id}")
