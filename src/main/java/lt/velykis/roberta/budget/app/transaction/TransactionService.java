@@ -36,6 +36,10 @@ public class TransactionService {
         transactionRepository.insert(transaction);
     }
 
+    public void addNewAccount(Account account) {
+        accountRepository.insert(account);
+    }
+
     public Optional<Account> findAccount(UUID id) {
         return Optional.ofNullable(accountRepository.find(id));
     }
@@ -61,10 +65,19 @@ public class TransactionService {
 
     }
 
+    public void updateAccount(UUID id, Account updatedAccount) {
+
+        Account newAccount = new Account(id, updatedAccount.getName());
+        accountRepository.update(newAccount);
+
+    }
+
     public void deleteTransaction(UUID id) {
-
         transactionRepository.delete(id);
+    }
 
+    public void deleteAccount(UUID id) {
+        accountRepository.delete(id);
     }
 
     public static BigDecimal countTotal(List<Transaction> transactions) {
